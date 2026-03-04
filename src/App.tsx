@@ -48,6 +48,7 @@ import {
 } from "lucide-react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { DRVKnowledgeGraph3D } from "@/components/DRVKnowledgeGraph3D"
+import { DataModelGraph3D } from "@/components/DataModelGraph3D"
 
 function App() {
   const [selectedLayer, setSelectedLayer] = useState<number | null>(null)
@@ -689,9 +690,27 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6 }}
-              className="sticky top-24 h-[700px]"
+              className="sticky top-24 h-[700px] relative"
             >
               <DRVKnowledgeGraph3D />
+              {/* Narration Play Button — overlaying the 3D graph */}
+              <div className="absolute bottom-5 right-5 z-30 flex items-center gap-3">
+                <button
+                  onClick={toggleNarration}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all hover:scale-105 backdrop-blur-sm"
+                >
+                  {isPlayingNarration ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
+                  <span className="text-sm font-medium">{isPlayingNarration ? 'Pause' : 'Fall Müller anhören'}</span>
+                </button>
+                {isPlayingNarration && (
+                  <button
+                    onClick={toggleMute}
+                    className="p-2 rounded-full bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 hover:text-white transition-colors backdrop-blur-sm"
+                  >
+                    {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                  </button>
+                )}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -1443,27 +1462,10 @@ function App() {
             </p>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto">
-            <Card className="border-2 bg-slate-900 text-slate-200 overflow-hidden">
-              <CardContent className="p-8">
-                <pre className="text-sm font-mono leading-relaxed overflow-x-auto whitespace-pre">
-{`CT_LAW (5–9 Gesetze: SGB I, IV, VI, IX, X, AAÜG, FRG, VersAusglG, BetrAVG)
- └─[SR_CONTAINS]─► S_SECTION (~1.000 Paragraphen)
-      └─[SR_CONTAINS]─► S_CORE_COMPONENT (~2.500 Kernkomponenten)
-           ├─[SR_DEFINES]─► S_BUSINESS_RULE (~800 Geschäftsregeln)
-           │    └─[SR_REALIZED_BY]─► S_PROCESS (~200 Prozesse)
-           │         ├─[SR_SUPPORTS]─► S_GOAL
-           │         └─[SR_COMPOSED_OF]─► S_TASK
-           └─[SR_ASSOCIATES]─► S_ENT_* (~2.000 Entitäten)
-                z.B. S_ENT_PERSON, S_ENT_BUSINESS_OBJECT,
-                     S_ENT_DEADLINE, S_ENT_MONEY_AMOUNT
-
-GRA_INSTRUCTION ──[SR_INSTRUCTS]──► S_SECTION
-STANDARD        ──[SR_APPLIES_TO]─► S_PROCESS
-CHAT_API        ──[SR_COMPATIBLE]─► CHAT_API`}
-                </pre>
-              </CardContent>
-            </Card>
+          <div className="max-w-5xl mx-auto">
+            <div className="h-[700px] rounded-xl overflow-hidden">
+              <DataModelGraph3D />
+            </div>
 
             <div className="grid md:grid-cols-3 gap-4 mt-8">
               {[

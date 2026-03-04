@@ -428,7 +428,32 @@ export function DRVKnowledgeGraph3D() {
   }, [])
 
   const toggleFullscreen = useCallback(() => {
-    setIsFullscreen(prev => !prev)
+    if (!containerRef.current) return
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().then(() => {
+        setIsFullscreen(true)
+      }).catch(() => {
+        // fallback: CSS fullscreen
+        setIsFullscreen(true)
+      })
+    } else {
+      document.exitFullscreen().then(() => {
+        setIsFullscreen(false)
+      }).catch(() => {
+        setIsFullscreen(false)
+      })
+    }
+  }, [])
+
+  // Sync state when user exits fullscreen with Escape key
+  useEffect(() => {
+    const handler = () => {
+      if (!document.fullscreenElement) {
+        setIsFullscreen(false)
+      }
+    }
+    document.addEventListener('fullscreenchange', handler)
+    return () => document.removeEventListener('fullscreenchange', handler)
   }, [])
 
   const nodeThreeObject = useCallback((node: GraphNode) => {
