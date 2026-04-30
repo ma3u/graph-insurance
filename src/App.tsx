@@ -1487,38 +1487,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="py-32 bg-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 network-pattern"></div>
-        </div>
-        <div className="container mx-auto px-6 max-w-7xl text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
-              Bereit für den digitalen Wissensassistenten?
-            </h2>
-            <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Erfahren Sie, wie ein Knowledge Graph mit GraphRAG 
-              die Komplexität des Sozialrechts beherrschbar macht — rechtskonform und transparent.
-            </p>
-            <Button 
-              size="lg" 
-              variant="secondary"
-              className="text-lg px-12 h-16 text-primary font-semibold shadow-xl hover:shadow-2xl transition-all hover:scale-105"
-              onClick={() => scrollToSection('architecture')}
-            >
-              Zur Architektur
-              <ArrowRight className="ml-3 h-6 w-6" />
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ── FOOTER ── */}
       <footer className="py-12 border-t border-border bg-muted/30">
         <div className="container mx-auto px-6 max-w-7xl">
