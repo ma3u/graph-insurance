@@ -1,16 +1,16 @@
-# 📋 CASSA DRV — Digitaler Wissensassistent für die Rentenversicherung
+# 📋 GraphRAG Demo — Wissensassistent für die Rentenversicherung
 
-**Compliance-Assured Structured Semantic Analysis** für die Deutsche Rentenversicherung — Interaktive 3D-Visualisierung eines Sozialrecht-Knowledge-Graphs mit GraphRAG und Chat-API.
+Interaktive 3D-Visualisierung eines Sozialrecht-Knowledge-Graphs mit GraphRAG und Chat-API. Demo-Anwendung zur Veranschaulichung von Knowledge Graphs und GraphRAG.
 
-> **[▶ Live-App öffnen](https://ma3u.github.io/cassa-drv/)**
+> **[▶ Live-App öffnen](https://ma3u.github.io/graph-insurance/)**
 
 ![Knoten](https://img.shields.io/badge/Knoten-65+-blue) ![Beziehungen](https://img.shields.io/badge/Beziehungen-90+-green) ![SGB](https://img.shields.io/badge/SGB-5%2B-orange) ![Chat API](https://img.shields.io/badge/Chat_API-OpenAI--kompatibel-brightgreen)
 
 ---
 
-## Was ist CASSA DRV?
+## Worum geht es?
 
-CASSA demonstriert, wie ein **Knowledge Graph** mit **GraphRAG** die Komplexität des Sozialrechts beherrschbar macht. Das Projekt zeigt die **Multi-Layered Ontologie-Architektur** für die Deutsche Rentenversicherung:
+Diese Demo zeigt, wie ein **Knowledge Graph** mit **GraphRAG** die Komplexität des Sozialrechts beherrschbar macht. Das Projekt veranschaulicht die **Multi-Layered Ontologie-Architektur** am Beispiel der Deutschen Rentenversicherung:
 
 | Schicht | Name | Beschreibung |
 |---------|------|-------------|
@@ -50,8 +50,8 @@ CASSA demonstriert, wie ein **Knowledge Graph** mit **GraphRAG** die Komplexitä
 
 ```bash
 # Repository klonen
-git clone https://github.com/ma3u/cassa-drv.git
-cd cassa-drv
+git clone https://github.com/ma3u/graph-insurance.git
+cd graph-insurance
 
 # Abhängigkeiten installieren
 npm ci
@@ -60,7 +60,7 @@ npm ci
 npm run dev
 ```
 
-Öffne [http://localhost:5173/cassa-drv/](http://localhost:5173/cassa-drv/) im Browser.
+Öffne [http://localhost:5173/graph-insurance/](http://localhost:5173/graph-insurance/) im Browser.
 
 ## Build & Deploy
 
@@ -74,7 +74,7 @@ npm run lint      # ESLint
 
 Das Projekt wird automatisch via GitHub Actions deployed:
 - Push auf `main` → Build → Deploy auf GitHub Pages
-- URL: `https://ma3u.github.io/cassa-drv/`
+- URL: `https://ma3u.github.io/graph-insurance/`
 
 ---
 
@@ -91,7 +91,7 @@ Die Landing Page zeigt 4 konkrete Beispiele, wo Vector RAG versagt:
 
 ## Chat API
 
-CASSA implementiert eine OpenAI-kompatible Chat-API:
+Die Demo implementiert eine OpenAI-kompatible Chat-API:
 
 ```
 POST /api/v1/chat        # Multi-Turn Chat mit Session

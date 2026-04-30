@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate ElevenLabs narration audio for CASSA DRV — Fall Müller.
+"""Generate ElevenLabs narration audio for the GraphRAG demo — Fall Müller.
 
 Uses Alice voice (multilingual v2) — professional, clear female narrator.
 The narration walks through a complex Sachbearbeiter case (Erwerbsminderungsrente)
@@ -23,7 +23,7 @@ if not API_KEY:
 # Alice — Clear, Engaging Educator — middle-aged female, professional
 VOICE_ID = "Xb7hH8MSUJpSbSDYk0k2"
 
-NARRATION_TEXT = """Willkommen bei CASSA — dem digitalen Wissensassistenten für die Deutsche Rentenversicherung, entwickelt von Sopra Steria.
+NARRATION_TEXT = """Willkommen beim digitalen Wissensassistenten für die Deutsche Rentenversicherung — einer Demo-Anwendung für Knowledge Graph und GraphRAG.
 
 Ich möchte Ihnen anhand eines realen Sachbearbeiterfalls zeigen, warum ein Knowledge Graph mit GraphRAG für die DRV unverzichtbar ist — und warum klassische KI-Ansätze wie ChatGPT oder Vector RAG bei der Komplexität des Sozialrechts versagen.
 
@@ -59,7 +59,7 @@ Und genau hier liegt der entscheidende Unterschied: Ein Vector RAG System hätte
 
 Der Knowledge Graph dagegen modelliert all diese Zusammenhänge als explizite Beziehungen. Jeder Knoten in diesem Graphen — jedes Gesetz, jeder Paragraph, jede Geschäftsregel, jedes Ereignis im Fall Müller — ist mit seinen Nachbarn verbunden. Und die GraphRAG-Engine kann diese Verbindungen traversieren, um vollständige, nachvollziehbare und rechtssichere Antworten zu liefern.
 
-Das ist CASSA: Ein System, das die Komplexität des Sozialrechts nicht vereinfacht, sondern beherrschbar macht. Für die 56.000 Mitarbeitenden der DRV, die jeden Tag Fälle wie den von Sabine Müller bearbeiten."""
+Das ist die Idee: Ein System, das die Komplexität des Sozialrechts nicht vereinfacht, sondern beherrschbar macht. Für die 56.000 Mitarbeitenden der DRV, die jeden Tag Fälle wie den von Sabine Müller bearbeiten."""
 
 # ── Generate with ElevenLabs ──
 url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"

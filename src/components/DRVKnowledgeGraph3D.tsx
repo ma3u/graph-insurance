@@ -163,8 +163,8 @@ function buildCaseData(): GraphData {
     { id: 'api_openai', label: 'OpenAI Chat API', type: 'chatapi', description: 'De-facto-Standard: POST /v1/chat/completions', details: { 'Format': 'messages[]: {role, content}', 'Rollen': 'system, user, assistant', 'Streaming': 'SSE (Server-Sent Events)', 'Verbreitung': 'OpenAI, Azure OpenAI, LiteLLM, vLLM, Ollama' } },
     { id: 'api_anthropic', label: 'Anthropic Messages', type: 'chatapi', description: 'POST /v1/messages — System-Prompt separiert', details: { 'Format': 'system: str, messages[]: {role, content}', 'Besonderheit': 'System-Prompt als Top-Level-Parameter', 'Streaming': 'SSE mit delta-Events' } },
     { id: 'api_langchain', label: 'LangChain / LangServe', type: 'chatapi', description: 'Framework-Standard für RAG-Pipelines', details: { 'Protokoll': 'invoke / stream / batch Endpoints', 'RAG-Integration': 'Retriever → LLM → Output Parser', 'Deployment': 'LangServe (FastAPI-basiert)' } },
-    { id: 'api_openapi', label: 'OpenAPI 3.1', type: 'chatapi', description: 'API-Beschreibungsstandard für REST-Schnittstellen', details: { 'Nutzen': 'Automatische Swagger/ReDoc-Dokumentation', 'CASSA': '/docs und /redoc Endpunkte', 'Tooling': 'Client-SDKs automatisch generierbar' } },
-    { id: 'api_cassa', label: 'CASSA Chat API', type: 'chatapi', description: 'CASSA-eigene API: OpenAI-kompatibel + GraphRAG-Erweiterungen', details: { 'Endpunkte': '/api/v1/chat, /api/v1/search', 'Erweiterung': 'citations[], session_id, context{}', 'Kompatibilität': 'OpenAI messages[]-Format', 'Swagger': 'http://localhost:8000/docs' } },
+    { id: 'api_openapi', label: 'OpenAPI 3.1', type: 'chatapi', description: 'API-Beschreibungsstandard für REST-Schnittstellen', details: { 'Nutzen': 'Automatische Swagger/ReDoc-Dokumentation', 'Demo': '/docs und /redoc Endpunkte', 'Tooling': 'Client-SDKs automatisch generierbar' } },
+    { id: 'api_chat', label: 'GraphRAG Chat API', type: 'chatapi', description: 'Demo-API: OpenAI-kompatibel + GraphRAG-Erweiterungen', details: { 'Endpunkte': '/api/v1/chat, /api/v1/search', 'Erweiterung': 'citations[], session_id, context{}', 'Kompatibilität': 'OpenAI messages[]-Format', 'Swagger': 'http://localhost:8000/docs' } },
 
     // ────────────────────────────────────────────
     // SACHBEARBEITER-FALL: Sabine Müller — Az. R 920/25-EM
@@ -278,9 +278,9 @@ function buildCaseData(): GraphData {
     { source: 'std_bsi', target: 'proc_rentenantrag', type: 'SR_APPLIES_TO', description: 'IT-Sicherheitsanforderung' },
 
     // Chat API relationships
-    { source: 'api_cassa', target: 'api_openai', type: 'SR_COMPATIBLE', description: 'kompatibel mit' },
-    { source: 'api_cassa', target: 'api_openapi', type: 'SR_COMPATIBLE', description: 'dokumentiert via' },
-    { source: 'api_cassa', target: 'api_langchain', type: 'SR_COMPATIBLE', description: 'integrierbar mit' },
+    { source: 'api_chat', target: 'api_openai', type: 'SR_COMPATIBLE', description: 'kompatibel mit' },
+    { source: 'api_chat', target: 'api_openapi', type: 'SR_COMPATIBLE', description: 'dokumentiert via' },
+    { source: 'api_chat', target: 'api_langchain', type: 'SR_COMPATIBLE', description: 'integrierbar mit' },
     { source: 'api_openai', target: 'api_anthropic', type: 'SR_SIMILAR', description: 'ähnliches Format' },
 
     // ────────────────────────────────────────────

@@ -92,7 +92,7 @@ function buildSchemaData(): SchemaData {
     { id: 's_ent_money', label: 'S_ENT_MONEY_AMOUNT', type: 'entity', description: 'Entität Geldbetrag: Rentenhöhe, Beitragsbemessungsgrenze, Hinzuverdienstgrenze', count: 'Subtyp' },
     { id: 'gra_instr', label: 'GRA_INSTRUCTION', type: 'gra_instruction', description: 'GRA-Anweisung: Gemeinsame Rechtliche Anweisung der DRV-Träger', count: '~300 Anweisungen' },
     { id: 'standard', label: 'STANDARD', type: 'standard', description: 'Standard: ISO, BSI, DSGVO, NIS2 — Compliance-Rahmenwerk', count: '~15 Standards' },
-    { id: 'chatapi', label: 'CHAT_API', type: 'chatapi', description: 'Chat-API: OpenAI, Anthropic, CASSA Chat-Schnittstelle', count: '3 APIs' },
+    { id: 'chatapi', label: 'CHAT_API', type: 'chatapi', description: 'Chat-API: OpenAI, Anthropic, GraphRAG Chat-Schnittstelle', count: '3 APIs' },
   ]
 
   const links: SchemaLink[] = [

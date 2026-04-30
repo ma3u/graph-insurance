@@ -1,4 +1,4 @@
-# CASSA Demo Plan — Deutsche Rentenversicherung (DRV)
+# GraphRAG Demo Demo Plan — Deutsche Rentenversicherung (DRV)
 
 **Customer:** Deutsche Rentenversicherung Bund  
 **Environment:** Dedicated `demo` Kubernetes namespace (shared AKS cluster)  
@@ -23,7 +23,7 @@
 
 ## 1. Scope & Goals
 
-The DRV demo shows live how CASSA transforms the German Social Law corpus relevant to pension insurance into a navigable compliance knowledge graph and enables natural language Q&A.
+The DRV demo shows live how GraphRAG Demo transforms the German Social Law corpus relevant to pension insurance into a navigable compliance knowledge graph and enables natural language Q&A.
 
 | Goal | Capability |
 |------|-----------|
@@ -37,8 +37,8 @@ The DRV demo shows live how CASSA transforms the German Social Law corpus releva
 
 ## 2. Data Import — Laws from Gesetze-im-Internet
 
-Source files are maintained under `cassa-pipelines/data/examples/drv/`.  
-See [data/examples/drv/README.md](../../cassa-pipelines/data/examples/drv/README.md) for fetch and pipeline commands.
+Source files are maintained under `graph-pipelines/data/examples/drv/`.  
+See [data/examples/drv/README.md](../../graph-pipelines/data/examples/drv/README.md) for fetch and pipeline commands.
 
 ### 2.1 Core Laws (Priority 1 — Run First)
 
@@ -83,7 +83,7 @@ Fetch and parse:
 python data/examples/drv/fetch_gra.py --sgb sgb_6 --output data/examples/drv/gra_sgb_6/
 
 # 2. Run instruction parser (text files treated as directives)
-uv run cassa-cli parse-pdf-directives --input-path data/examples/drv/gra_sgb_6/ --profile law-instruction
+uv run graph-cli parse-pdf-directives --input-path data/examples/drv/gra_sgb_6/ --profile law-instruction
 ```
 
 ---
@@ -254,7 +254,7 @@ OPTIONS { indexConfig: {
 
 Note: Embeddings for `S_CORE_COMPONENT` nodes should be generated and stored during the
 pipeline upload step (Step 6 — `upload-neo4j`). The embedding model is `text-embedding-3-large`
-(dimension 3072), already deployed in Azure OpenAI (`oai-cassa-multienv`).
+(dimension 3072), already deployed in Azure OpenAI (`oai-demo-multienv`).
 
 **Python retriever (pseudocode):**
 
@@ -321,7 +321,7 @@ Sessions are stored in Redis with an **8-hour TTL** (one working day). A session
 ```
 
 Key decisions:
-- **Session ID** is generated on first message and stored in browser `sessionStorage` + returned in every response cookie (`cassa-chat-session`)
+- **Session ID** is generated on first message and stored in browser `sessionStorage` + returned in every response cookie (`chat-session`)
 - **Browser refresh** restores the session via the cookie → Redis lookup
 - **Max turns in context window**: last 10 turns (to avoid token overflow)
 - **Eviction**: Redis key expires after 8h inactivity (`EXPIRE session:<id> 28800`)
@@ -344,8 +344,8 @@ class RedisSessionStore:
 
 ### 6.6 REST API — Chat & Search (Implemented)
 
-> **Source:** `cassa-pipelines/src/graph_pipeline/api/`  
-> **Start:** `uv run cassa-cli serve [--port 8000] [--reload]`
+> **Source:** `graph-pipelines/src/graph_pipeline/api/`  
+> **Start:** `uv run graph-cli serve [--port 8000] [--reload]`
 
 The API is implemented with **FastAPI** and served via **uvicorn**.  
 OpenAPI/Swagger documentation is auto-generated and available at runtime:
@@ -441,7 +441,7 @@ Stateless GraphRAG retrieval — no session, no history.
 #### API module layout
 
 ```
-cassa-pipelines/src/graph_pipeline/
+graph-pipelines/src/graph_pipeline/
 ├── api/
 │   ├── app.py            # FastAPI factory, lifespan (Neo4j + Redis startup)
 │   ├── deps.py           # Dependency injection helpers (get_search_service, get_chat_service)
@@ -473,7 +473,7 @@ The `session_id` is stored in React state and persisted across messages within a
 ```json
 // NeoDash panel config (inside the dashboard JSON)
 {
-  "type": "cassa_chatbot",
+  "type": "graph_chatbot",
   "title": "KI-Assistent",
   "settings": {
     "chatEndpoint": "http://localhost:8000/api/v1/chat"
@@ -487,8 +487,8 @@ The `session_id` is stored in React state and persisted across messages within a
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   CASSA DRV Demo Namespace                   │
-│  (Kubernetes namespace: demo, shared AKS aks-cassa-multienv) │
+│                   GraphRAG Demo DRV Demo Namespace                   │
+│  (Kubernetes namespace: demo, shared AKS aks-demo-multienv) │
 │                                                              │
 │  ┌──────────────┐   ┌───────────────────────────────────┐   │
 │  │   NeoDash    │   │         Backend API               │   │
@@ -514,7 +514,7 @@ The `session_id` is stored in React state and persisted across messages within a
 └─────────────────────────────────────────────────────────────┘
                          │                  │
               Azure OpenAI (GPT-4o)    text-embedding-3-large
-              oai-cassa-multienv       oai-cassa-multienv
+              oai-demo-multienv       oai-demo-multienv
 ```
 
 ---
@@ -582,8 +582,8 @@ Add routes to the existing Application Gateway:
 - [x] **WP-3.3** Implement `VectorCypherRetriever` with `BR_RETRIEVAL_QUERY` traversal
 - [x] **WP-3.4** Implement persistent session management (`RedisSessionStore`, TTL 8 h)
 - [x] **WP-3.5** Swagger UI auto-generated at `/docs` and `/redoc`
-- [x] **WP-3.6** NeoDash Custom Chart Extension (`cassa_chatbot`)
-- [x] **WP-3.6a** Add `cassa-cli serve` subcommand for local development
+- [x] **WP-3.6** NeoDash Custom Chart Extension (`graph_chatbot`)
+- [x] **WP-3.6a** Add `graph-cli serve` subcommand for local development
 - [ ] **WP-3.4a** Add `redis-demo-drv` deployment to `demo-drv` namespace
 - [ ] **WP-3.7** End-to-end demo walkthrough test (Scenarios A–D)
 

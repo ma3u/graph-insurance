@@ -10,7 +10,7 @@ const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/cassa-drv/',
+  base: '/graph-insurance/',
   plugins: [
     react(),
     tailwindcss(),

@@ -361,9 +361,9 @@ function App() {
       <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between max-w-7xl">
           <div className="flex items-center gap-3">
-            <SopraLogo />
+            <span className="text-lg font-bold tracking-tight">GraphRAG Demo</span>
             <Separator orientation="vertical" className="h-8 hidden md:block" />
-            <span className="text-sm font-medium text-muted-foreground hidden md:block">CASSA · DRV</span>
+            <span className="text-sm font-medium text-muted-foreground hidden md:block">DRV Use Case</span>
           </div>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm" onClick={() => scrollToSection('architecture')} className="hidden md:flex">
@@ -381,11 +381,9 @@ function App() {
             <Button variant="ghost" size="sm" onClick={() => scrollToSection('scenarios')} className="hidden md:flex">
               Szenarien
             </Button>
-            <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <a href="https://www.soprasteria.de/products/cassa" target="_blank" rel="noopener noreferrer">
-                Mehr erfahren
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+            <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground" onClick={() => scrollToSection('architecture')}>
+              Mehr erfahren
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -418,14 +416,12 @@ function App() {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
-                asChild 
                 size="lg" 
                 className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-10 h-14 shadow-lg hover:shadow-xl transition-shadow"
+                onClick={() => scrollToSection('architecture')}
               >
-                <a href="https://www.soprasteria.de/products/cassa" target="_blank" rel="noopener noreferrer">
-                  <BrainCircuit className="mr-2 h-5 w-5" />
-                  CASSA entdecken
-                </a>
+                <BrainCircuit className="mr-2 h-5 w-5" />
+                Demo entdecken
               </Button>
               <Button 
                 variant="outline" 
@@ -599,7 +595,7 @@ function App() {
           >
             <Badge className="mb-4 bg-primary text-primary-foreground text-base px-4 py-2">
               <BrainCircuit className="h-4 w-4 mr-2" />
-              Schritt 3: Die CASSA-Lösung
+              Schritt 3: Die GraphRAG-Lösung
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Multi-Layered Ontologie-Architektur
@@ -931,7 +927,7 @@ function App() {
                     Graph-Traversierung: Die Prüfkette im Knowledge Graph
                   </CardTitle>
                   <CardDescription>
-                    So navigiert CASSA durch 6 Paragraphen in 3 Sozialgesetzbüchern — automatisch und nachvollziehbar
+                    So navigiert der Wissensassistent durch 6 Paragraphen in 3 Sozialgesetzbüchern — automatisch und nachvollziehbar
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -1110,7 +1106,7 @@ function App() {
               Chatbot API nach Industriestandards
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              CASSA implementiert die gängigen Chat-API-Standards. Jedes Frontend, jeder Chatbot-Client 
+              Die Demo implementiert die gängigen Chat-API-Standards. Jedes Frontend, jeder Chatbot-Client 
               kann sich direkt integrieren — OpenAI-kompatibel mit GraphRAG-Erweiterungen.
             </p>
           </motion.div>
@@ -1143,7 +1139,7 @@ function App() {
             ))}
           </div>
 
-          {/* CASSA API Detail */}
+          {/* Chat API Detail */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1154,10 +1150,10 @@ function App() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <Bot className="h-6 w-6 text-primary" />
-                  CASSA Chat API — OpenAI-kompatibel + GraphRAG
+                  Chat API — OpenAI-kompatibel + GraphRAG
                 </CardTitle>
                 <CardDescription>
-                  Die CASSA API folgt dem OpenAI messages[]-Format und erweitert es um Zitationen und Sitzungsverwaltung.
+                  Die Chat-API folgt dem OpenAI messages[]-Format und erweitert es um Zitationen und Sitzungsverwaltung.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1242,7 +1238,7 @@ function App() {
               Praxisszenarien für die DRV
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Konkrete Anwendungsfälle zeigen, wie CASSA die tägliche Arbeit in der Rentenversicherung unterstützt.
+              Konkrete Anwendungsfälle zeigen, wie ein Knowledge Graph die tägliche Arbeit in der Rentenversicherung unterstützt.
             </p>
           </motion.div>
 
@@ -1295,7 +1291,7 @@ function App() {
                       </CardHeader>
                       <CardContent>
                         <Separator className="mb-6" />
-                        <h4 className="font-semibold text-lg mb-4">CASSA-Funktionen für diesen Fall:</h4>
+                        <h4 className="font-semibold text-lg mb-4">GraphRAG-Funktionen für diesen Fall:</h4>
                         <div className="grid md:grid-cols-2 gap-4">
                           {scenario.benefits.map((benefit, i) => (
                             <motion.div
@@ -1339,7 +1335,7 @@ function App() {
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Die DRV arbeitet auf Basis eines komplexen Geflechts aus Sozialgesetzbüchern, 
-              EU-Verordnungen und internen Handlungsanweisungen. CASSA bildet sie alle als Graph ab.
+              EU-Verordnungen und internen Handlungsanweisungen. Der Wissensassistent bildet sie alle als Graph ab.
             </p>
           </motion.div>
 
@@ -1378,7 +1374,7 @@ function App() {
                   { name: "GRA SGB IV", desc: "Anweisungen zu Versicherungspflicht, Beiträgen und Meldeverfahren" },
                   { name: "GRA SGB IX", desc: "Anweisungen zur Rehabilitation — DRV als zuständiger Leistungsträger" },
                   { name: "GRA Fremdrentenrecht", desc: "Spezialanweisungen für ausländische Versicherungszeiten und Spätaussiedler" },
-                  { name: "rvRecht® Portal", desc: "Öffentlich zugängliches DRV-Rechtsportal mit allen GRA — Quelle für CASSA-Import" },
+                  { name: "rvRecht® Portal", desc: "Öffentlich zugängliches DRV-Rechtsportal mit allen GRA — Quelle für Graph-Import" },
                 ]
               }
             ].map((category, catIndex) => {
@@ -1425,7 +1421,7 @@ function App() {
                 <div className="flex items-start gap-4">
                   <ShieldCheck className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="text-xl font-bold mb-2">CASSA-Integration</h3>
+                    <h3 className="text-xl font-bold mb-2">Graph-Integration</h3>
                     <p className="text-muted-foreground leading-relaxed">
                       Alle genannten Gesetze und Anweisungen sind direkt im Knowledge Graph verankert. 
                       Jeder Paragraph enthält seine Geschäftsregeln, jede Regel verweist auf die relevanten Prozesse und Entitäten.
@@ -1511,19 +1507,17 @@ function App() {
               Bereit für den digitalen Wissensassistenten?
             </h2>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Erfahren Sie mehr über CASSA und wie ein Knowledge Graph mit GraphRAG 
+              Erfahren Sie, wie ein Knowledge Graph mit GraphRAG 
               die Komplexität des Sozialrechts beherrschbar macht — rechtskonform und transparent.
             </p>
             <Button 
-              asChild 
               size="lg" 
               variant="secondary"
               className="text-lg px-12 h-16 text-primary font-semibold shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+              onClick={() => scrollToSection('architecture')}
             >
-              <a href="https://www.soprasteria.de/products/cassa" target="_blank" rel="noopener noreferrer">
-                Zur offiziellen CASSA-Website
-                <ArrowRight className="ml-3 h-6 w-6" />
-              </a>
+              Zur Architektur
+              <ArrowRight className="ml-3 h-6 w-6" />
             </Button>
           </motion.div>
         </div>
@@ -1534,21 +1528,11 @@ function App() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <SopraLogo />
+              <span className="text-lg font-bold tracking-tight">GraphRAG Demo</span>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-4">
-              <p className="text-sm text-muted-foreground text-center">
-                © 2025 Sopra Steria. Alle Rechte vorbehalten.
-              </p>
-              <a
-                href="https://www.soprasteria.de/footer/impressum"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
-              >
-                Impressum
-              </a>
-            </div>
+            <p className="text-sm text-muted-foreground text-center">
+              Demo-Anwendung für Knowledge Graph &amp; GraphRAG — keine Produktivnutzung.
+            </p>
           </div>
         </div>
       </footer>
@@ -1558,15 +1542,6 @@ function App() {
 
 // ── Helper Components ──
 
-function SopraLogo() {
-  return (
-    <img 
-      src="https://www.soprasteria.de/ResourcePackages/Bootstrap4/assets/dist/logos/logo-soprasteria.svg" 
-      alt="Sopra Steria" 
-      className="h-8 md:h-10"
-    />
-  )
-}
 
 function AnimatedBackground() {
   return (

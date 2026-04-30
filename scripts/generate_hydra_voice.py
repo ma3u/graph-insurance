@@ -12,7 +12,7 @@ from pathlib import Path
 
 # ── Narration text (German) — warm, friendly narrator voice ──────────────
 HYDRA_NARRATION = """
-Hallo und willkommen bei CASSA — dem intelligenten Wissensgraphen, entwickelt von Sopra Steria.
+Hallo und willkommen beim intelligenten Wissensgraphen — einer Demo-Anwendung für Knowledge Graph und GraphRAG.
 
 Fangen wir mit einer ehrlichen Frage an: Warum kann man nicht einfach ChatGPT für polizeiliche Ermittlungen nutzen?
 
@@ -24,7 +24,7 @@ Zweitens: Keine rechtliche Validierung. ChatGPT weiß nicht, welche Fassung der 
 
 Drittens: Keine Beweiskette. Vor Gericht muss jeder Ermittlungsschritt nachvollziehbar sein — wer hat wann was gesichert, auf welcher Rechtsgrundlage, mit welchem Ergebnis. Ein LLM liefert Text ohne Herkunftsnachweis. Das ist nicht gerichtsverwertbar.
 
-Genau hier setzt CASSA an — mit einer Multi-Layered Ontologie-Architektur in vier Schichten.
+Genau hier setzt diese Demo an — mit einer Multi-Layered Ontologie-Architektur in vier Schichten.
 
 Schicht Eins ist die Normative Schicht. Sie bildet die gesamte Hierarchie der Rechtsquellen ab — vom EU-Recht über das Grundgesetz und die StPO bis hin zu Landespolizeigesetzen und Dienstvorschriften. Jede Ermittlungsmaßnahme wird automatisch gegen die geltende Rechtsgrundlage geprüft — das kann kein LLM.
 
@@ -66,7 +66,7 @@ Strukturierte Ermittlungsführung: Im Graph werden Hypothesen modelliert. Wenn e
 
 Und schließlich: der neuro-symbolische Ansatz — LLM-Sprachverarbeitung kombiniert mit deterministischer Graph-Validierung. Das LLM hilft beim Verstehen von Freitext, aber die Validierung läuft über den Graphen. Keine Halluzinationen. Gerichtsverwertbar. BVerfG-konform.
 
-88 Knoten, 113 Beziehungen, 18 Knotentypen, 10 Länder, 12 Services, 7 Schlüsselpersonen, 12 Ereignisse — das ist der Hydra Graph. Und das ist CASSA: ein System, das genauso vernetzt denkt wie die organisierte Kriminalität selbst agiert. Aber auf der richtigen Seite des Gesetzes.
+88 Knoten, 113 Beziehungen, 18 Knotentypen, 10 Länder, 12 Services, 7 Schlüsselpersonen, 12 Ereignisse — das ist der Hydra Graph: ein System, das genauso vernetzt denkt wie die organisierte Kriminalität selbst agiert. Aber auf der richtigen Seite des Gesetzes.
 """.strip()
 
 # ── Voice preference (German professional voices) ────────────────────────────
