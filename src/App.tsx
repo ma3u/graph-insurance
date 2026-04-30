@@ -381,10 +381,6 @@ function App() {
             <Button variant="ghost" size="sm" onClick={() => scrollToSection('scenarios')} className="hidden md:flex">
               Szenarien
             </Button>
-            <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground" onClick={() => scrollToSection('architecture')}>
-              Mehr erfahren
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </div>
         </div>
       </header>
