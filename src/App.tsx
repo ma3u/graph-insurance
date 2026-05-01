@@ -100,45 +100,75 @@ function App() {
   }
 
   // ────────────────────────────────────────────
-  // Data: Challenges
+  // Data: Personas & Pain Points (Service Design)
+  // Person-zentrierte Sicht auf die Herausforderungen
+  // der gesetzlichen Rentenversicherung. Quellen siehe `painPointSources`.
   // ────────────────────────────────────────────
-  const challenges = [
+  const personas = [
     {
-      icon: ScrollText,
-      title: "Komplexe Gesetzeslandschaft",
-      stat: "5+",
-      statLabel: "Sozialgesetzbücher",
-      description: "SGB I, IV, VI, IX, X — über 870 Paragraphen bilden die Rechtsgrundlage der gesetzlichen Rentenversicherung. Querverweise, Übergangsregelungen und Sonderfälle machen die Anwendung hochkomplex.",
-      trend: "870+ §§",
-      color: "oklch(0.45 0.15 245)"
-    },
-    {
-      icon: Clock,
-      title: "Bearbeitungszeiten & Rückstände",
-      stat: "3–6",
-      statLabel: "Monate Bearbeitungszeit",
-      description: "Rentenanträge durchlaufen aufwändige Prüfungen: Kontenklärung, Wartezeitberechnung, Entgeltpunkte. Mitarbeitende müssen Dutzende Querverweise manuell prüfen.",
-      trend: "Ziel: <3 Mon.",
-      color: "oklch(0.55 0.20 55)"
+      icon: Workflow,
+      role: "Sachbearbeiter:in Rente",
+      context: "Tägliche Antragsprüfung, Wartezeitberechnung, Bescheiderstellung",
+      stat: "870+",
+      statLabel: "Paragraphen in 5 Sozialgesetzbüchern",
+      color: "oklch(0.45 0.15 245)",
+      painPoints: [
+        { text: "Querverweise zwischen SGB I, IV, VI, IX, X manuell auflösen.", refs: [1] },
+        { text: "GRA-Anweisungen verteilen sich auf interne Portale ohne durchgängige Suche.", refs: [1, 2] },
+        { text: "Übergangsregelungen (z. B. §235 SGB VI) erfordern jahrelange Erfahrung.", refs: [2] },
+      ],
     },
     {
       icon: Users,
-      title: "Fachkräftemangel & Wissenstransfer",
-      stat: "56.000",
-      statLabel: "DRV-Beschäftigte",
-      description: "Erfahrene Sachbearbeiter gehen in den Ruhestand — ihr implizites Wissen über Sonderfälle, GRA-Anweisungen und Berechnungsdetails lässt sich kaum dokumentieren.",
-      trend: "Kritisch",
-      color: "oklch(0.50 0.18 25)"
+      role: "Versicherte:r und Antragsteller:in",
+      context: "Renteneintritt vorbereiten, Auskunft erhalten, Bescheid verstehen",
+      stat: "3 bis 6",
+      statLabel: "Monate Bearbeitungszeit (Erstantrag)",
+      color: "oklch(0.55 0.20 55)",
+      painPoints: [
+        { text: "Lange Verfahren bei Erwerbsminderungsrenten und Widersprüchen.", refs: [3, 4] },
+        { text: "Bescheide und Rentenformeln gelten als schwer verständlich.", refs: [3] },
+        { text: "Hohe Quote stattgegebener Widersprüche bei EM-Renten.", refs: [4, 5] },
+      ],
     },
     {
-      icon: Link2,
-      title: "Gesetzesübergreifende Abhängigkeiten",
-      stat: "100+",
-      statLabel: "Querverweise",
-      description: "SGB VI verweist auf SGB IV (Versicherungspflicht), SGB X (Verwaltungsverfahren), SGB IX (Rehabilitation). Fehler bei Querverweisen führen zu falschen Bescheiden.",
-      trend: "Komplex",
-      color: "oklch(0.45 0.12 200)"
-    }
+      icon: BookOpen,
+      role: "Trainee und neue Mitarbeitende",
+      context: "Einarbeitung in das Sozialrecht der Rentenversicherung",
+      stat: "12 bis 24",
+      statLabel: "Monate Einarbeitungszeit",
+      color: "oklch(0.50 0.18 25)",
+      painPoints: [
+        { text: "Demografische Pensionierungswelle bei erfahrenen Sachbearbeiter:innen.", refs: [2, 6] },
+        { text: "Implizites Wissen zu Sonderfällen lässt sich kaum dokumentieren.", refs: [6] },
+        { text: "Fachkräftegewinnung im öffentlichen Dienst bleibt angespannt.", refs: [6] },
+      ],
+    },
+    {
+      icon: MessageSquare,
+      role: "Auskunft im Servicecenter",
+      context: "Telefonische und schriftliche Auskunft an Versicherte",
+      stat: "Millionen",
+      statLabel: "Auskünfte pro Jahr",
+      color: "oklch(0.45 0.12 200)",
+      painPoints: [
+        { text: "Komplexe Rückfragen erfordern parallele Recherche in mehreren Systemen.", refs: [1, 2] },
+        { text: "Aktualität nach Gesetzesänderungen und Rentenanpassungen sicherstellen.", refs: [2] },
+        { text: "Hoher Anrufdruck steht im Konflikt mit fundierter Auskunftsqualität.", refs: [1] },
+      ],
+    },
+  ]
+
+  // Quellen / öffentliche Belege für die Pain Points oben.
+  // Verlinkt sind Übersichtsseiten der jeweiligen Institutionen,
+  // damit die Belege langfristig erreichbar bleiben.
+  const painPointSources = [
+    { id: 1, label: "DRV Bund: Rentenversicherung in Zahlen (jährlich)", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Zahlen-und-Fakten/Statistiken-und-Berichte/statistiken_und_berichte_node.html" },
+    { id: 2, label: "BMAS: Rentenversicherungsbericht (jährlich)", url: "https://www.bmas.de/DE/Soziales/Rente-und-Altersvorsorge/rente-und-altersvorsorge.html" },
+    { id: 3, label: "Sozialverband VdK: Berichte und Studien zur Rente", url: "https://www.vdk.de/deutschland/pages/themen/rente" },
+    { id: 4, label: "Bundesrechnungshof: Bemerkungen zu Sozialversicherungen", url: "https://www.bundesrechnungshof.de/de/veroeffentlichungen/produkte/bemerkungen-jahresberichte" },
+    { id: 5, label: "Bundessozialgericht: Statistik zu Rentenstreitsachen", url: "https://www.bsg.bund.de/DE/Service/Statistik/statistik_node.html" },
+    { id: 6, label: "Sozialbeirat: Gutachten zum Rentenversicherungsbericht", url: "https://www.bmas.de/DE/Soziales/Rente-und-Altersvorsorge/Sozialbeirat/sozialbeirat-art.html" },
   ]
 
   // ────────────────────────────────────────────
@@ -189,12 +219,12 @@ function App() {
   const scenarios = [
     {
       title: "Compliance-Analyse",
-      description: "Schnell die bindende Geschäftsregel für einen Leistungstyp finden und gegen den Quell-Paragraphen verifizieren — z. B. Regelaltersrente (§35 SGB VI) mit allen Querverweisen.",
+      description: "Schnell die bindende Geschäftsregel für einen Leistungstyp finden und gegen den Quell-Paragraphen verifizieren, zum Beispiel die Regelaltersrente (§35 SGB VI) mit allen Querverweisen.",
       benefits: [
         "Automatische Auflösung aller Querverweise: §35 → §50 (Wartezeit) → §235 (Altersgrenze) → §56 (Kindererziehung)",
         "Chatbot mit Graph-Kontext: Frage stellen und Antwort mit §-Zitaten erhalten",
         "GRA-Anweisungen direkt verlinkt: Von der Geschäftsregel zur Handlungsanweisung in einem Klick",
-        "Automatische Prüfung gegen aktuelle Gesetzeslage — kein Risiko veralteter Informationen"
+        "Automatische Prüfung gegen aktuelle Gesetzeslage. Kein Risiko veralteter Informationen."
       ],
       icon: FileText,
       color: "oklch(0.45 0.15 245)",
@@ -202,11 +232,11 @@ function App() {
     },
     {
       title: "Prozess-Engineering",
-      description: "Geschäftsregeln auf DRV-Prozesse abbilden — z. B. den Rentenantragsprozess von der Antragstellung bis zum Bescheid mit allen Abhängigkeiten visualisieren.",
+      description: "Geschäftsregeln auf DRV-Prozesse abbilden, zum Beispiel den Rentenantragsprozess von der Antragstellung bis zum Bescheid mit allen Abhängigkeiten visualisieren.",
       benefits: [
         "Prozessgraph: Aufgaben, Sequenzfluss und Entscheidungspunkte als verknüpfte Knoten",
         "Fristen automatisch verknüpft: §17 SGB I (rechtzeitige Erbringung), §84 SGB X (Widerspruchsfrist)",
-        "Chatbot: 'Welche Fristen gelten für die Bearbeitung eines Rentenantrags?' — Antwort zitiert §99, §17, §26",
+        "Chatbot: 'Welche Fristen gelten für die Bearbeitung eines Rentenantrags?' Antwort zitiert §99, §17, §26.",
         "Export als strukturierte Daten für BPMN-Modellierung (zukünftige Funktion)"
       ],
       icon: Workflow,
@@ -215,7 +245,7 @@ function App() {
     },
     {
       title: "Gesetzesfolgen-Analyse",
-      description: "Impact-Analyse bei Gesetzesänderungen — z. B. 'Was ändert sich durch den neuen §33 für die Erwerbsminderungsrente?' Alle betroffenen Regeln und Prozesse identifizieren.",
+      description: "Impact-Analyse bei Gesetzesänderungen, zum Beispiel: 'Was ändert sich durch den neuen §33 für die Erwerbsminderungsrente?' Alle betroffenen Regeln und Prozesse identifizieren.",
       benefits: [
         "Semantische Ähnlichkeitssuche über alle verknüpften Geschäftsregeln",
         "Automatische Identifikation aller betroffenen Prozesse und Aufgaben",
@@ -228,12 +258,12 @@ function App() {
     },
     {
       title: "Onboarding & Wissenstransfer",
-      description: "Neue Mitarbeitende verstehen DRV-Zuständigkeiten und Gesetzesgrundlagen — ohne 300+ Seiten Gesetzestext lesen zu müssen.",
+      description: "Neue Mitarbeitende verstehen DRV-Zuständigkeiten und Gesetzesgrundlagen, ohne 300+ Seiten Gesetzestext lesen zu müssen.",
       benefits: [
         "Chatbot erklärt komplexe Sachverhalte in einfacher Sprache mit §-Verweisen",
         "Navigierbarer Wissensgraph: Von der Übersicht ins Detail durch interaktive Exploration",
         "GRA-Anweisungen als Handlungsleitfaden direkt verknüpft mit Paragraphen",
-        "Häufige Fragen mit Standardantworten und Quellennachweis — kein Halluzinationsrisiko"
+        "Häufige Fragen mit Standardantworten und Quellennachweis. Kein Halluzinationsrisiko."
       ],
       icon: Users,
       color: "oklch(0.45 0.12 200)",
@@ -250,7 +280,7 @@ function App() {
       question: "Hat Frau Müller (62 Jahre, 38 Beitragsjahre, 3 Kinder geb. 1993, 1996, 1999) Anspruch auf Regelaltersrente?",
       graphAnswer: {
         result: "Korrekte Antwort mit vollständiger Begründung",
-        explanation: "Graph RAG traversiert: §35 SGB VI → §50 (Wartezeit ✓: 38 Jahre > 5 Jahre) → §235 (Regelaltersgrenze für Jg. 1964: 67 Jahre → mit 62 noch nicht erreicht) → §56 (Kindererziehungszeiten: 3×36 = 108 Monate zusätzlich). Ergebnis: Noch kein Anspruch, da Altersgrenze nicht erreicht — aber Wartezeit für Altersrente für besonders langjährig Versicherte (45 Jahre) wäre mit KEZ potenziell erfüllt."
+        explanation: "Graph RAG traversiert: §35 SGB VI → §50 (Wartezeit ✓: 38 Jahre > 5 Jahre) → §235 (Regelaltersgrenze für Jg. 1964: 67 Jahre, mit 62 noch nicht erreicht) → §56 (Kindererziehungszeiten: 3×36 = 108 Monate zusätzlich). Ergebnis: Noch kein Anspruch, da Altersgrenze nicht erreicht. Wartezeit für Altersrente für besonders langjährig Versicherte (45 Jahre) wäre mit KEZ potenziell erfüllt."
       },
       vectorAnswer: {
         result: "Unvollständige oder falsche Antwort",
@@ -324,7 +354,7 @@ function App() {
       name: "OpenAPI 3.1 / Swagger",
       endpoint: "GET /openapi.json",
       description: "API-Beschreibungsstandard. Automatische Swagger-UI und ReDoc-Dokumentation. Client-SDK-Generierung.",
-      adoptedBy: "Universeller Standard — FastAPI, Spring, Express, etc.",
+      adoptedBy: "Universeller Standard: FastAPI, Spring, Express, etc.",
       color: "#3b82f6"
     }
   ]
@@ -407,7 +437,7 @@ function App() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed">
-              Wie ein Knowledge Graph mit GraphRAG die Komplexität des Sozialrechts beherrschbar macht — und warum Vector RAG bei gesetzesübergreifenden Fragen versagt.
+              Wie ein Knowledge Graph mit GraphRAG die Komplexität des Sozialrechts beherrschbar macht. Und warum Vector RAG bei gesetzesübergreifenden Fragen versagt.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -433,7 +463,7 @@ function App() {
         </div>
       </motion.section>
 
-      {/* ── SECTION: Herausforderungen ── */}
+      {/* ── SECTION: Herausforderungen (Service Design / Personas) ── */}
       <section id="challenges" className="py-24 bg-muted/30 relative">
         <div className="container mx-auto px-6 max-w-7xl">
           <motion.div
@@ -448,17 +478,19 @@ function App() {
               Schritt 1: Das Problem verstehen
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Die Herausforderungen der Rentenversicherung
+              Personenzentrierte Sicht auf die Herausforderungen
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              56.000 DRV-Beschäftigte verarbeiten jährlich Millionen von Rentenanträgen — auf Basis eines
-              Rechtsrahmens mit über 870 Paragraphen in 5+ Sozialgesetzbüchern.
+              Rund 56.000 DRV-Beschäftigte begleiten Millionen Versicherte durch ein
+              Sozialrecht mit über 870 Paragraphen in fünf Sozialgesetzbüchern.
+              Die Pain Points werden hier aus Sicht zentraler Personas beschrieben,
+              belegt durch öffentliche Quellen.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {challenges.map((challenge, index) => {
-              const Icon = challenge.icon
+            {personas.map((persona, index) => {
+              const Icon = persona.icon
               return (
                 <motion.div
                   key={index}
@@ -470,43 +502,117 @@ function App() {
                   <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group border-2 hover:border-primary/50">
                     <CardHeader>
                       <div className="flex items-start gap-4">
-                        <motion.div 
+                        <motion.div
                           className="p-4 rounded-xl"
-                          style={{ backgroundColor: `${challenge.color}15` }}
+                          style={{ backgroundColor: `${persona.color}15` }}
                           whileHover={{ scale: 1.05, rotate: 5 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         >
-                          <Icon className="h-8 w-8" style={{ color: challenge.color }} />
+                          <Icon className="h-8 w-8" style={{ color: persona.color }} />
                         </motion.div>
                         <div className="flex-1">
-                          <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">
-                            {challenge.title}
+                          <Badge variant="outline" className="mb-2 text-xs uppercase tracking-wide">
+                            Persona
+                          </Badge>
+                          <CardTitle className="text-2xl mb-2 group-hover:text-primary transition-colors">
+                            {persona.role}
                           </CardTitle>
-                          <div className="flex items-center gap-3 mb-3">
-                            <div>
-                              <div className="text-3xl font-bold" style={{ color: challenge.color }}>
-                                {challenge.stat}
-                              </div>
-                              <div className="text-xs text-muted-foreground uppercase tracking-wide">
-                                {challenge.statLabel}
-                              </div>
+                          <CardDescription className="text-sm leading-relaxed mb-3">
+                            {persona.context}
+                          </CardDescription>
+                          <div className="flex items-baseline gap-2">
+                            <div className="text-2xl font-bold" style={{ color: persona.color }}>
+                              {persona.stat}
                             </div>
-                            <Badge variant="secondary" className="text-sm font-semibold">
-                              <TrendingUp className="h-3 w-3 mr-1" />
-                              {challenge.trend}
-                            </Badge>
+                            <div className="text-xs text-muted-foreground uppercase tracking-wide">
+                              {persona.statLabel}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground leading-relaxed">{challenge.description}</p>
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-semibold">
+                        Pain Points
+                      </div>
+                      <ul className="space-y-2">
+                        {persona.painPoints.map((pp, i) => (
+                          <li key={i} className="flex gap-3 text-sm leading-relaxed">
+                            <AlertTriangle
+                              className="h-4 w-4 mt-0.5 flex-shrink-0"
+                              style={{ color: persona.color }}
+                            />
+                            <span className="text-muted-foreground">
+                              {pp.text}
+                              {pp.refs.length > 0 && (
+                                <sup className="ml-1 text-foreground font-semibold">
+                                  {pp.refs.map((r, ri) => (
+                                    <span key={r}>
+                                      <a
+                                        href={`#quelle-${r}`}
+                                        className="hover:text-primary transition-colors"
+                                      >
+                                        [{r}]
+                                      </a>
+                                      {ri < pp.refs.length - 1 ? "," : ""}
+                                    </span>
+                                  ))}
+                                </sup>
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </CardContent>
                   </Card>
                 </motion.div>
               )
             })}
           </div>
+
+          {/* Quellen / Sources */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="mt-12"
+          >
+            <Card className="bg-card/60 border-dashed">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  Quellen und weiterführende Belege
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  Öffentliche Veröffentlichungen, die die oben genannten Pain Points dokumentieren.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ol className="text-sm space-y-2 text-muted-foreground">
+                  {painPointSources.map((src) => (
+                    <li
+                      key={src.id}
+                      id={`quelle-${src.id}`}
+                      className="flex gap-3 leading-relaxed"
+                    >
+                      <span className="font-semibold text-foreground min-w-[1.75rem]">
+                        [{src.id}]
+                      </span>
+                      <a
+                        href={src.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary transition-colors underline underline-offset-4 decoration-dotted"
+                      >
+                        {src.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
       </section>
 
@@ -529,7 +635,7 @@ function App() {
               ChatGPT & Co. für das Sozialrecht ungeeignet
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Large Language Models sind probabilistisch — Rentenberechnung ist deterministisch. 
+              Large Language Models sind probabilistisch, Rentenberechnung ist deterministisch. 
               Halluzinierte Paragraphen, fehlende Querverweise und temporale Blindheit machen reine LLMs für die DRV unbrauchbar.
             </p>
           </motion.div>
@@ -543,12 +649,12 @@ function App() {
               },
               {
                 title: "Temporale Blindheit",
-                description: "Kein Verständnis für Übergangsregelungen: Welche Altersgrenze gilt für Jahrgang 1960? LLMs kennen nicht die stufenweise Anhebung und antworten generisch mit '67 Jahre' — falsch.",
+                description: "Kein Verständnis für Übergangsregelungen: Welche Altersgrenze gilt für Jahrgang 1960? LLMs kennen nicht die stufenweise Anhebung und antworten generisch mit '67 Jahre', was falsch ist.",
                 icon: Clock
               },
               {
                 title: "Fehlende Querverweise",
-                description: "§43 EM-Rente verweist auf §53 (Ausnahme bei Arbeitsunfall) — LLMs erkennen diese Spezialregel nicht, weil sie Beziehungen zwischen Normen nicht systematisch traversieren können.",
+                description: "§43 EM-Rente verweist auf §53 (Ausnahme bei Arbeitsunfall). LLMs erkennen diese Spezialregel nicht, weil sie Beziehungen zwischen Normen nicht systematisch traversieren können.",
                 icon: Database
               }
             ].map((problem, index) => {
@@ -597,7 +703,7 @@ function App() {
               Multi-Layered Ontologie-Architektur
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-              Structure-Aware Temporal Graph RAG (SAT-Graph RAG) in Neo4j-Graphdatenbank — 
+              Structure-Aware Temporal Graph RAG (SAT-Graph RAG) in Neo4j-Graphdatenbank. 
               alle Sozialgesetzbücher, Geschäftsregeln und Prozesse als navigierbarer Knowledge Graph.
             </p>
             <p className="text-base text-primary font-semibold">
@@ -723,11 +829,11 @@ function App() {
               Praxisbeispiel: Komplexer Sachbearbeiterfall
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Fall Sabine Müller — Az. R 920/25-EM
+              Fall Sabine Müller, Az. R 920/25-EM
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Ein realer Erwerbsminderungsrentenantrag mit Kindererziehungszeiten, Arbeitsunfall, 
-              Beitragslücken und Widerspruchsverfahren — 6 Paragraphen, 3 Sozialgesetzbücher, 1 Fall.
+              Beitragslücken und Widerspruchsverfahren: 6 Paragraphen, 3 Sozialgesetzbücher, 1 Fall.
             </p>
           </motion.div>
 
@@ -749,7 +855,7 @@ function App() {
                     {isPlayingNarration ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6 ml-0.5" />}
                   </button>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-foreground">Fall Müller — Narration</p>
+                    <p className="font-semibold text-foreground">Fall Müller: Narration</p>
                     <p className="text-sm text-muted-foreground">
                       {isPlayingNarration ? 'Spielt...' : 'Hören Sie die Fallanalyse (ca. 6 Min.)'}
                     </p>
@@ -842,9 +948,9 @@ function App() {
                   <CardContent className="space-y-3">
                     {[
                       { label: '27 Monate Beitragslücke (2000-2002)', desc: 'Gefährdet 3-von-5-Jahre-Regel für §43', color: 'text-red-500' },
-                      { label: 'Arbeitsunfall löst §53 aus', desc: 'Vorzeitige Wartezeiterfüllung — Spezialregel', color: 'text-purple-500' },
+                      { label: 'Arbeitsunfall löst §53 aus', desc: 'Vorzeitige Wartezeiterfüllung. Spezialregel.', color: 'text-purple-500' },
                       { label: 'KEZ nach §56 rettet Wartezeit', desc: 'Kindererziehungszeiten = Pflichtbeiträge', color: 'text-blue-500' },
-                      { label: 'Reha vor Rente bereits erfüllt', desc: '§9 SGB VI + §49 SGB IX — Grundsatz beachtet', color: 'text-green-500' },
+                      { label: 'Reha vor Rente bereits erfüllt', desc: '§9 SGB VI + §49 SGB IX. Grundsatz beachtet.', color: 'text-green-500' },
                       { label: 'Widerspruch nach §84 SGB X', desc: 'Erstantrag abgelehnt, fristgerechter Widerspruch', color: 'text-amber-500' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-3 text-sm">
@@ -871,7 +977,7 @@ function App() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Clock className="h-5 w-5 text-primary" />
-                    Versicherungsverlauf — 40 Jahre im Überblick
+                    Versicherungsverlauf: 40 Jahre im Überblick
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -923,7 +1029,7 @@ function App() {
                     Graph-Traversierung: Die Prüfkette im Knowledge Graph
                   </CardTitle>
                   <CardDescription>
-                    So navigiert der Wissensassistent durch 6 Paragraphen in 3 Sozialgesetzbüchern — automatisch und nachvollziehbar
+                    So navigiert der Wissensassistent durch 6 Paragraphen in 3 Sozialgesetzbüchern. Automatisch und nachvollziehbar.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -949,7 +1055,7 @@ function App() {
                   <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                     Ein Vector RAG findet vielleicht §43. Aber nur der Knowledge Graph traversiert die vollständige Kette: 
                     von der EM-Prüfung über die Wartezeit-Ausnahme bei Arbeitsunfall bis zur Anrechnung der 
-                    Kindererziehungszeiten als Pflichtbeiträge — und validiert dabei automatisch den Reha-vor-Rente-Grundsatz.
+                    Kindererziehungszeiten als Pflichtbeiträge. Validiert dabei automatisch den Reha-vor-Rente-Grundsatz.
                   </p>
                 </CardContent>
               </Card>
@@ -976,7 +1082,7 @@ function App() {
               Graph RAG vs. Vector RAG
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Vector RAG findet ähnliche Textpassagen — Graph RAG versteht <strong>Beziehungen</strong> zwischen Normen.
+              Vector RAG findet ähnliche Textpassagen. Graph RAG versteht <strong>Beziehungen</strong> zwischen Normen.
               Bei gesetzesübergreifenden Fragen versagt Vector RAG systematisch. Hier sind konkrete Beispiele.
             </p>
           </motion.div>
@@ -987,14 +1093,14 @@ function App() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <XCircle className="h-5 w-5 text-destructive" />
-                  Vector RAG — Limitierungen
+                  Vector RAG: Limitierungen
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
-                  "Findet nur textlich ähnliche Passages — keine strukturellen Verbindungen",
+                  "Findet nur textlich ähnliche Passages, keine strukturellen Verbindungen",
                   "Übersieht Ausnahmeregeln in anderen Paragraphen (§53 bei §43-Suche)",
-                  "Keine temporalen Metadaten — kann Übergangsregelungen nicht auswerten",
+                  "Keine temporalen Metadaten, kann Übergangsregelungen nicht auswerten",
                   "Kein Multi-Hop: Kann nicht über 3+ Gesetze hinweg Schlüsse ziehen",
                   "Kein Verständnis für Normenhierarchie oder Vorrang-/Spezialitätsregeln"
                 ].map((item, i) => (
@@ -1010,16 +1116,16 @@ function App() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <CircleCheck className="h-5 w-5 text-green-600" />
-                  Graph RAG — Vorteile
+                  Graph RAG: Vorteile
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
                   "Traversiert Gesetz → Paragraph → Regel → Prozess über explizite Kanten",
                   "Folgt Querverweisen (SR_REFERENCES) und Ausnahmen (SR_DEPENDS_ON)",
-                  "Temporale Metadaten an jedem Knoten — exakte Gültigkeit pro Stichtag",
+                  "Temporale Metadaten an jedem Knoten: exakte Gültigkeit pro Stichtag",
                   "Multi-Hop über beliebig viele verknüpfte Gesetze, Regeln und Entitäten",
-                  "Normenhierarchie als Graph-Struktur — automatische Vorrangprüfung"
+                  "Normenhierarchie als Graph-Struktur: automatische Vorrangprüfung"
                 ].map((item, i) => (
                   <div key={i} className="flex gap-3 text-sm">
                     <CircleCheck className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
@@ -1103,7 +1209,7 @@ function App() {
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Die Demo implementiert die gängigen Chat-API-Standards. Jedes Frontend, jeder Chatbot-Client 
-              kann sich direkt integrieren — OpenAI-kompatibel mit GraphRAG-Erweiterungen.
+              kann sich direkt integrieren: OpenAI-kompatibel mit GraphRAG-Erweiterungen.
             </p>
           </motion.div>
 
@@ -1146,7 +1252,7 @@ function App() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <Bot className="h-6 w-6 text-primary" />
-                  Chat API — OpenAI-kompatibel + GraphRAG
+                  Chat API: OpenAI-kompatibel + GraphRAG
                 </CardTitle>
                 <CardDescription>
                   Die Chat-API folgt dem OpenAI messages[]-Format und erweitert es um Zitationen und Sitzungsverwaltung.
@@ -1198,10 +1304,10 @@ function App() {
                 <div className="grid md:grid-cols-3 gap-4">
                   {[
                     { label: "POST /api/v1/chat", desc: "Multi-Turn Chat mit Session (Redis, 8h TTL)" },
-                    { label: "POST /api/v1/search", desc: "Single-Turn Search — stateless, keine Session" },
+                    { label: "POST /api/v1/search", desc: "Single-Turn Search: stateless, keine Session" },
                     { label: "DELETE /api/v1/chat/{id}", desc: "Session löschen" },
                     { label: "GET /…/history", desc: "Konversationsverlauf abrufen" },
-                    { label: "GET /docs", desc: "Swagger UI — interaktive API-Dokumentation" },
+                    { label: "GET /docs", desc: "Swagger UI: interaktive API-Dokumentation" },
                     { label: "GET /health", desc: "Health Check Endpoint" },
                   ].map((ep, i) => (
                     <div key={i} className="p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
@@ -1342,11 +1448,11 @@ function App() {
                 title: "Sozialgesetzbücher",
                 color: "oklch(0.45 0.15 245)",
                 standards: [
-                  { name: "SGB VI — Rentenversicherung", desc: "Primärgesetz: ~323 §§ — Beiträge, Leistungen, Alters-/Erwerbsminderungsrente, Rehabilitation" },
-                  { name: "SGB IV — Gemeinsame Vorschriften", desc: "Versicherungspflicht, Beitragsbemessung, Meldeverfahren — Grundlage aller Sozialversicherungen" },
-                  { name: "SGB I — Allgemeiner Teil", desc: "Framework: Leistungsansprüche, Fristen, Zuständigkeiten — gilt übergreifend für alle SGBs" },
-                  { name: "SGB IX — Rehabilitation", desc: "DRV als Reha-Träger — medizinische Rehabilitation und Teilhabe am Arbeitsleben" },
-                  { name: "SGB X — Verwaltungsverfahren", desc: "Verwaltungsakte, Widerspruchsverfahren, Sozialdatenschutz — Verfahrensrecht" },
+                  { name: "SGB VI: Rentenversicherung", desc: "Primärgesetz mit ca. 323 §§. Beiträge, Leistungen, Alters- und Erwerbsminderungsrente, Rehabilitation." },
+                  { name: "SGB IV: Gemeinsame Vorschriften", desc: "Versicherungspflicht, Beitragsbemessung, Meldeverfahren. Grundlage aller Sozialversicherungen." },
+                  { name: "SGB I: Allgemeiner Teil", desc: "Framework: Leistungsansprüche, Fristen, Zuständigkeiten. Gilt übergreifend für alle SGBs." },
+                  { name: "SGB IX: Rehabilitation", desc: "DRV als Reha-Träger: medizinische Rehabilitation und Teilhabe am Arbeitsleben." },
+                  { name: "SGB X: Verwaltungsverfahren", desc: "Verwaltungsakte, Widerspruchsverfahren, Sozialdatenschutz. Verfahrensrecht." },
                 ]
               },
               {
@@ -1354,11 +1460,11 @@ function App() {
                 title: "EU-Recht & Datenschutz",
                 color: "oklch(0.50 0.18 200)",
                 standards: [
-                  { name: "DSGVO (EU 2016/679)", desc: "Datenschutz-Grundverordnung — Rechtsrahmen für die Verarbeitung personenbezogener Sozialdaten" },
-                  { name: "EU-VO 883/2004", desc: "Koordinierung der Systeme der sozialen Sicherheit — grenzüberschreitende Rentenansprüche" },
-                  { name: "BSI IT-Grundschutz", desc: "IT-Sicherheitsstandard — Pflicht für DRV als Behörde mit kritischer Infrastruktur" },
-                  { name: "AAÜG — Anwartschaftsüberführung", desc: "Post-Vereinigungspension: Überführung von DDR-Rentenanwartschaften" },
-                  { name: "VersAusglG — Versorgungsausgleich", desc: "Scheidungsbedingter Rentenausgleich zwischen Ehepartnern" },
+                  { name: "DSGVO (EU 2016/679)", desc: "Datenschutz-Grundverordnung. Rechtsrahmen für die Verarbeitung personenbezogener Sozialdaten." },
+                  { name: "EU-VO 883/2004", desc: "Koordinierung der Systeme der sozialen Sicherheit. Grenzüberschreitende Rentenansprüche." },
+                  { name: "BSI IT-Grundschutz", desc: "IT-Sicherheitsstandard. Pflicht für DRV als Behörde mit kritischer Infrastruktur." },
+                  { name: "AAÜG: Anwartschaftsüberführung", desc: "Post-Vereinigungspension: Überführung von DDR-Rentenanwartschaften" },
+                  { name: "VersAusglG: Versorgungsausgleich", desc: "Scheidungsbedingter Rentenausgleich zwischen Ehepartnern" },
                 ]
               },
               {
@@ -1366,11 +1472,11 @@ function App() {
                 title: "DRV-Anweisungen (GRA)",
                 color: "oklch(0.55 0.20 55)",
                 standards: [
-                  { name: "GRA SGB VI", desc: "Gemeinsame Rechtliche Anweisungen zur Rentenversicherung — Auslegungshinweise zu allen §§" },
+                  { name: "GRA SGB VI", desc: "Gemeinsame Rechtliche Anweisungen zur Rentenversicherung. Auslegungshinweise zu allen §§." },
                   { name: "GRA SGB IV", desc: "Anweisungen zu Versicherungspflicht, Beiträgen und Meldeverfahren" },
-                  { name: "GRA SGB IX", desc: "Anweisungen zur Rehabilitation — DRV als zuständiger Leistungsträger" },
+                  { name: "GRA SGB IX", desc: "Anweisungen zur Rehabilitation. DRV als zuständiger Leistungsträger." },
                   { name: "GRA Fremdrentenrecht", desc: "Spezialanweisungen für ausländische Versicherungszeiten und Spätaussiedler" },
-                  { name: "rvRecht® Portal", desc: "Öffentlich zugängliches DRV-Rechtsportal mit allen GRA — Quelle für Graph-Import" },
+                  { name: "rvRecht® Portal", desc: "Öffentlich zugängliches DRV-Rechtsportal mit allen GRA. Quelle für Graph-Import." },
                 ]
               }
             ].map((category, catIndex) => {
@@ -1421,7 +1527,7 @@ function App() {
                     <p className="text-muted-foreground leading-relaxed">
                       Alle genannten Gesetze und Anweisungen sind direkt im Knowledge Graph verankert. 
                       Jeder Paragraph enthält seine Geschäftsregeln, jede Regel verweist auf die relevanten Prozesse und Entitäten.
-                      Die zeitliche Dimension speichert die Gültigkeit jeder Fassung — von der Übergangsregelung bis zur aktuellen Rentenanpassung.
+                      Die zeitliche Dimension speichert die Gültigkeit jeder Fassung. Von der Übergangsregelung bis zur aktuellen Rentenanpassung.
                       GRA-Anweisungen des rvRecht®-Portals sind als eigene Knotentypen verknüpft und liefern praxisnahe Auslegungshinweise.
                     </p>
                   </div>
@@ -1447,7 +1553,7 @@ function App() {
               Schritt 8: Graph-Architektur
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Knowledge Graph — Datenmodell
+              Knowledge Graph: Datenmodell
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Die vollständige DRV-Graphstruktur: von Gesetzen über Geschäftsregeln bis zu Prozessen und Entitäten.
@@ -1495,7 +1601,7 @@ function App() {
               <span className="text-lg font-bold tracking-tight">GraphRAG Demo</span>
             </div>
             <p className="text-sm text-muted-foreground text-center">
-              Demo-Anwendung für Knowledge Graph &amp; GraphRAG — keine Produktivnutzung.
+              Demo-Anwendung für Knowledge Graph &amp; GraphRAG. Keine Produktivnutzung.
             </p>
           </div>
         </div>
