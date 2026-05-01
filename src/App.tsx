@@ -172,6 +172,90 @@ function App() {
   ]
 
   // ────────────────────────────────────────────
+  // Data: Persona-spezifische Lösungen
+  // Jede Lösung leitet sich aus den Pain Points oben ab und verweist
+  // auf konkrete Funktionen der Multi-Layered Ontologie und GraphRAG-Pipeline.
+  // ────────────────────────────────────────────
+  const personaSolutions: {
+    pain: string
+    solution: string
+    tags: string[]
+  }[][] = [
+    // Sachbearbeiter:in Rente
+    [
+      {
+        pain: "Querverweise zwischen mehreren SGBs manuell auflösen.",
+        solution: "Multi-Hop-Traversierung im Knowledge Graph beantwortet gesetzesübergreifende Fragen in einem Schritt und zitiert jeden zugrundeliegenden Paragraphen.",
+        tags: ["Normative Schicht", "GraphRAG"],
+      },
+      {
+        pain: "GRA-Anweisungen verteilen sich auf mehrere Portale.",
+        solution: "GRA-Anweisungen sind im Graph als typisierte Knoten mit Relation zu jedem Paragraphen modelliert und in Antworten direkt verlinkt.",
+        tags: ["GRA-Verknüpfung", "Quellennachweis"],
+      },
+      {
+        pain: "Übergangsregelungen erfordern jahrelange Erfahrung.",
+        solution: "Die zeitliche Dimension speichert Gültigkeit pro Stichtag (z. B. §235 SGB VI), das System wählt automatisch die korrekte Fassung.",
+        tags: ["Zeitliche Dimension"],
+      },
+    ],
+    // Versicherte:r und Antragsteller:in
+    [
+      {
+        pain: "Lange Verfahren bei EM-Renten und Widersprüchen.",
+        solution: "Prozedurale Schicht modelliert Antrags- und Widerspruchsworkflow, prüft Vollständigkeit der Unterlagen und macht Fristen sichtbar.",
+        tags: ["Prozedurale Schicht", "Fristenmonitoring"],
+      },
+      {
+        pain: "Bescheide und Rentenformeln sind schwer verständlich.",
+        solution: "Erklär-Modus generiert versichertenfreundliche Antworten in einfacher Sprache, jede Aussage bleibt durch Paragraphen-Zitate belegbar.",
+        tags: ["Chat API", "Citations"],
+      },
+      {
+        pain: "Hohe Quote stattgegebener Widersprüche.",
+        solution: "Vier-Augen-Prüfung gegen den Graph deckt fehlende Querverweise vor Bescheiderlass auf und reduziert vermeidbare Widersprüche.",
+        tags: ["Compliance-Check", "Qualität"],
+      },
+    ],
+    // Trainee und neue Mitarbeitende
+    [
+      {
+        pain: "Demografische Pensionierungswelle bei erfahrenen Sachbearbeiter:innen.",
+        solution: "Implizites Wissen wird als typisierte Knoten und Relationen kodifiziert und ist auch nach Personalwechseln dauerhaft abrufbar.",
+        tags: ["Wissensbewahrung"],
+      },
+      {
+        pain: "Implizites Wissen zu Sonderfällen lässt sich kaum dokumentieren.",
+        solution: "Fallbezogener Overlay verknüpft Sonderfälle mit Norm- und Prozessknoten, neue Mitarbeitende sehen ähnliche Fälle inklusive der angewendeten Regeln.",
+        tags: ["Fallbezogener Overlay"],
+      },
+      {
+        pain: "Fachkräftegewinnung im öffentlichen Dienst bleibt angespannt.",
+        solution: "Geführte Q&A mit Erklärungen und Quellen verkürzt die Einarbeitung und macht erste produktive Bearbeitungen früher möglich.",
+        tags: ["Onboarding"],
+      },
+    ],
+    // Auskunft im Servicecenter
+    [
+      {
+        pain: "Komplexe Rückfragen erfordern parallele Recherche in mehreren Systemen.",
+        solution: "OpenAI-kompatible Chat API liefert Antwort, Quellen und Folgeschritte gebündelt, integrierbar in bestehende CRM- und Portal-Frontends.",
+        tags: ["Chat API", "Integration"],
+      },
+      {
+        pain: "Aktualität nach Gesetzesänderungen sicherstellen.",
+        solution: "Versionierte Norm- und GRA-Knoten plus Pipeline-Re-Ingestion garantieren, dass jede Antwort auf der aktuellen Rechtsfassung basiert.",
+        tags: ["Versionierung", "Pipeline"],
+      },
+      {
+        pain: "Hoher Anrufdruck steht im Konflikt mit fundierter Auskunftsqualität.",
+        solution: "Self-Service-Chat für Standardfragen entlastet das Team, komplexe Fälle landen mit vorbereitetem Kontext bei den Mitarbeitenden.",
+        tags: ["Self-Service", "Triage"],
+      },
+    ],
+  ]
+
+  // ────────────────────────────────────────────
   // Data: 4-Layer Ontology (DRV)
   // ────────────────────────────────────────────
   const layers = [
@@ -396,6 +480,12 @@ function App() {
             <span className="text-sm font-medium text-muted-foreground hidden md:block">DRV Use Case</span>
           </div>
           <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={() => scrollToSection('challenges')} className="hidden md:flex">
+              Herausforderungen
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => scrollToSection('solution')} className="hidden md:flex">
+              Lösung
+            </Button>
             <Button variant="ghost" size="sm" onClick={() => scrollToSection('architecture')} className="hidden md:flex">
               Architektur
             </Button>
@@ -616,6 +706,126 @@ function App() {
         </div>
       </section>
 
+      {/* ── SECTION: Lösung (Pain Point → GraphRAG-Funktion) ── */}
+      <section id="solution" className="py-24 bg-background relative">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <Badge className="mb-4 text-base px-4 py-2 bg-accent/15 text-accent border-accent/30">
+              <Zap className="h-4 w-4 mr-2" />
+              Schritt 2: Die Lösung ableiten
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Vom Pain Point zur GraphRAG-Funktion
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Jeder Pain Point der Personas wird auf eine konkrete Funktion der
+              Multi-Layered Ontologie und der GraphRAG-Pipeline abgebildet.
+              Die folgende Tabelle macht die Ableitung explizit.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {personas.map((persona, idx) => {
+              const Icon = persona.icon
+              const solutions = personaSolutions[idx]
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
+                  <Card className="h-full border-2 hover:border-primary/40 transition-all hover:shadow-xl">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div
+                          className="p-3 rounded-xl"
+                          style={{ backgroundColor: `${persona.color}15` }}
+                        >
+                          <Icon className="h-6 w-6" style={{ color: persona.color }} />
+                        </div>
+                        <div>
+                          <Badge variant="outline" className="text-xs uppercase tracking-wide mb-1">
+                            Persona
+                          </Badge>
+                          <CardTitle className="text-xl">{persona.role}</CardTitle>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {solutions.map((sol, i) => (
+                          <div
+                            key={i}
+                            className="grid grid-cols-[auto_1fr] gap-3 text-sm"
+                          >
+                            <div className="flex items-start gap-2 pt-0.5">
+                              <AlertTriangle
+                                className="h-4 w-4 flex-shrink-0"
+                                style={{ color: persona.color }}
+                              />
+                            </div>
+                            <div>
+                              <div className="text-muted-foreground leading-relaxed mb-1">
+                                <span className="font-semibold text-foreground">
+                                  Pain Point:{" "}
+                                </span>
+                                {sol.pain}
+                              </div>
+                              <div className="flex items-start gap-2 leading-relaxed">
+                                <CheckCircle2 className="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />
+                                <div>
+                                  <span className="font-semibold text-foreground">
+                                    Lösung:{" "}
+                                  </span>
+                                  <span className="text-muted-foreground">{sol.solution}</span>
+                                </div>
+                              </div>
+                              <div className="mt-1 ml-6 flex flex-wrap gap-1">
+                                {sol.tags.map((tag) => (
+                                  <Badge
+                                    key={tag}
+                                    variant="secondary"
+                                    className="text-[10px] uppercase tracking-wide"
+                                  >
+                                    {tag}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* Bridge to next section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="mt-12 text-center"
+          >
+            <p className="text-muted-foreground italic">
+              Wie diese Funktionen technisch umgesetzt sind, zeigt die folgende
+              4-Schichten-Ontologie und der konkrete Fall Müller.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── SECTION: Warum reine LLMs nicht genügen ── */}
       <section className="py-24 bg-card relative">
         <div className="absolute inset-0 bg-destructive/5"></div>
@@ -629,7 +839,7 @@ function App() {
           >
             <Badge className="mb-4 bg-destructive/10 text-destructive border-destructive/20 text-base px-4 py-2">
               <AlertTriangle className="h-4 w-4 mr-2" />
-              Schritt 2: Warum reine LLMs nicht genügen
+              Schritt 3: Warum reine LLMs nicht genügen
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               ChatGPT & Co. für das Sozialrecht ungeeignet
@@ -697,7 +907,7 @@ function App() {
           >
             <Badge className="mb-4 bg-primary text-primary-foreground text-base px-4 py-2">
               <BrainCircuit className="h-4 w-4 mr-2" />
-              Schritt 3: Die GraphRAG-Lösung
+              Schritt 4: Die GraphRAG-Lösung
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Multi-Layered Ontologie-Architektur
@@ -1076,7 +1286,7 @@ function App() {
           >
             <Badge className="mb-4 text-base px-4 py-2">
               <GitCompare className="h-4 w-4 mr-2" />
-              Schritt 4: Warum Graph RAG?
+              Schritt 5: Warum Graph RAG?
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Graph RAG vs. Vector RAG
@@ -1202,7 +1412,7 @@ function App() {
           >
             <Badge className="mb-4 text-base px-4 py-2">
               <MessageSquare className="h-4 w-4 mr-2" />
-              Schritt 5: Chat API Standards
+              Schritt 6: Chat API Standards
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Chatbot API nach Industriestandards
@@ -1334,7 +1544,7 @@ function App() {
           >
             <Badge className="mb-4 text-base px-4 py-2">
               <CheckCircle2 className="h-4 w-4 mr-2" />
-              Schritt 6: Praxis erleben
+              Schritt 7: Praxis erleben
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Praxisszenarien für die DRV
@@ -1430,7 +1640,7 @@ function App() {
           >
             <Badge className="mb-4 text-base px-4 py-2">
               <Scale className="h-4 w-4 mr-2" />
-              Schritt 7: Rechtsgrundlagen
+              Schritt 8: Rechtsgrundlagen
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Gesetzliche Grundlagen im Knowledge Graph
@@ -1550,7 +1760,7 @@ function App() {
           >
             <Badge className="mb-4 text-base px-4 py-2">
               <Layers className="h-4 w-4 mr-2" />
-              Schritt 8: Graph-Architektur
+              Schritt 9: Graph-Architektur
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Knowledge Graph: Datenmodell
